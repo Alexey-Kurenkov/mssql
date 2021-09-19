@@ -47,7 +47,15 @@ from sys.sysprocesses p
 outer apply sys.dm_exec_sql_text(p.sql_handle) t;
 
 with src as
-(select *, rn=row_number() over (partition by spid order by kpid) from @process)
+(
+    select *,
+        rn=row_number() over
+            (
+                partition by spid
+                order by kpid
+            )
+    from @process
+)
 , cte as
 (
 	select
@@ -88,5 +96,5 @@ select replicate('.',lev*5)+convert(varchar,spid) as tree,
 	text
 from cte
 order by list, rn
-option (maxrecursion 30000);
+option (maxrecursion 0);
 GO
