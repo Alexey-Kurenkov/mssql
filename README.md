@@ -1,2 +1,2 @@
 # mssql
-my sql server scripts
+Скрипты для работы Microsoft SQL Server
