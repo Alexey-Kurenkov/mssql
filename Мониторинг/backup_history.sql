@@ -1,5 +1,5 @@
 DECLARE @BackupType VARCHAR(30) = 'D'
-       ,@dbName NVARCHAR(128) = 'master';
+       ,@dbName NVARCHAR(128) = 'Metazon';
 
 SELECT
     CASE s.[type]
@@ -41,6 +41,7 @@ FROM msdb.dbo.backupset s
 JOIN msdb.dbo.backupmediafamily m
     on s.media_set_id = m.media_set_id
 WHERE (s.[type] = @BackupType OR @BackupType IS NULL)
+    and (s.database_name = @dbName or @dbName is null)
 ORDER BY
     backup_start_date DESC,
     backup_finish_date DESC;
